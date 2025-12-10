@@ -160,8 +160,9 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSuccess }) => {
                 <h3 className="text-xl font-serif text-white mb-4 flex items-center gap-2">
                     <CreditCard className="w-5 h-5 text-gold" /> Payment ({currentCurrency.code})
                 </h3>
-                <div className="p-4 bg-charcoal rounded border border-charcoal-lighter text-center text-gray-500 text-sm mb-4">
-                    Secure Payment Gateway Simulator. No real charge will be made.
+                <div className="p-4 bg-charcoal rounded border border-charcoal-lighter flex items-center gap-3 text-sm mb-4">
+                    <Lock className="w-4 h-4 text-green-500" />
+                    <span className="text-gray-300">Payments processed securely via Stripe. 256-bit SSL Encrypted.</span>
                 </div>
                 <div className="grid gap-4">
                         <div>

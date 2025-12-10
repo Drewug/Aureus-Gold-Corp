@@ -112,7 +112,7 @@ export const SeoEditor: React.FC<SeoEditorProps> = ({ initialSettings, onSave, o
                             <div className="text-[#1a0dab] text-xl truncate hover:underline cursor-pointer">
                                 {settings.metaTitle || titleOverride || "Page Title"} | Aureus Gold Corp
                             </div>
-                            <div className="text-[#006621] text-sm">https://aureus.demo/product/example</div>
+                            <div className="text-[#006621] text-sm">https://www.aureusgoldcorp.com/product/example</div>
                             <div className="text-[#545454] text-sm leading-snug line-clamp-2">
                                 {settings.metaDescription || descOverride || "No description provided."}
                             </div>

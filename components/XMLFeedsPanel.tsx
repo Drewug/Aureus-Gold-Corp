@@ -71,7 +71,7 @@ export const XMLFeedsPanel = () => {
             <div className="space-y-3 mt-auto">
                  <div className="flex items-center gap-2 text-xs text-gray-500 bg-charcoal p-2 rounded border border-charcoal-lighter break-all">
                     <span className="font-semibold text-gray-400">URL:</span>
-                    https://api.aureus.demo/feeds/{type}.xml
+                    https://www.aureusgoldcorp.com/feeds/{type}.xml
                  </div>
                  <div className="flex gap-2">
                     <Button variant="outline" className="flex-1" onClick={() => copyToClipboard(xml, type)} disabled={!xml}>

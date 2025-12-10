@@ -1,25 +1,23 @@
-
-
 import { Product, Order, CMSContent, LogEntry, OrderItem, Address, OrderStatus, NotificationTemplate, AdminBroadcast, MultiCurrencySettings, RateHistoryPoint, CurrencyConfig, SeoGlobalConfig, KeywordOpportunity, FormDefinition, LeadSubmission, LeadStatus, BlogPost, BlogCategory } from '../types';
 import { localDb } from './localDb';
 import { v4 as uuidv4 } from 'uuid';
 
-// Simulating network delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+// Minimal delay to ensure UI loading states trigger correctly without feeling slow
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, 50));
 
 export const api = {
   products: {
     list: async (): Promise<Product[]> => {
-      await delay(200);
+      await delay(50);
       return localDb.getProducts();
     },
     get: async (slug: string): Promise<Product | undefined> => {
-      await delay(100);
+      await delay(50);
       const products = localDb.getProducts();
       return products.find(p => p.slug === slug);
     },
     create: async (product: Product): Promise<void> => {
-      await delay(300);
+      await delay(100);
       const products = localDb.getProducts();
       if (!product.id) product.id = uuidv4();
       products.push(product);
@@ -32,7 +30,7 @@ export const api = {
       });
     },
     bulkCreate: async (newProducts: Product[]): Promise<void> => {
-        await delay(500);
+        await delay(200);
         const products = localDb.getProducts();
         products.push(...newProducts);
         localDb.saveProducts(products);
@@ -43,7 +41,7 @@ export const api = {
         });
     },
     bulkUpdate: async (updatedProducts: Product[]): Promise<void> => {
-        await delay(500);
+        await delay(200);
         const products = localDb.getProducts();
         let updateCount = 0;
         
@@ -63,7 +61,7 @@ export const api = {
         });
     },
     update: async (product: Product): Promise<void> => {
-      await delay(300);
+      await delay(50);
       const products = localDb.getProducts();
       const index = products.findIndex(p => p.id === product.id);
       
@@ -86,7 +84,7 @@ export const api = {
       }
     },
     delete: async (id: string): Promise<void> => {
-      await delay(300);
+      await delay(50);
       const products = localDb.getProducts();
       const product = products.find(p => p.id === id);
       const filtered = products.filter(p => p.id !== id);
@@ -100,7 +98,7 @@ export const api = {
       });
     },
     importCSV: async (csvText: string): Promise<{updated: number, errors: string[]}> => {
-        await delay(500);
+        await delay(200);
         const lines = csvText.split('\n');
         const products = localDb.getProducts();
         let updated = 0;
@@ -147,7 +145,7 @@ export const api = {
       items: OrderItem[],
       total: number
     ): Promise<Order> => {
-      await delay(800);
+      await delay(300); // Slight delay for checkout UX
       
       const products = localDb.getProducts();
       
@@ -199,11 +197,11 @@ export const api = {
       return newOrder;
     },
     list: async (): Promise<Order[]> => {
-      await delay(200);
+      await delay(50);
       return localDb.getOrders();
     },
     update: async (order: Order): Promise<void> => {
-      await delay(200);
+      await delay(50);
       const orders = localDb.getOrders();
       const oldOrder = orders.find(o => o.id === order.id);
       
@@ -216,19 +214,19 @@ export const api = {
       });
     },
     clearAll: async (): Promise<void> => {
-      await delay(500);
+      await delay(100);
       localStorage.setItem('aureus_orders', JSON.stringify([]));
-      await api.logs.create('system', 'Reset', 'All test orders cleared from database.', { author: 'Admin' });
+      await api.logs.create('system', 'Reset', 'All orders cleared from database.', { author: 'Admin' });
     }
   },
 
   cms: {
     get: async (): Promise<CMSContent> => {
-      await delay(100);
+      await delay(50);
       return localDb.getCms();
     },
     update: async (content: CMSContent): Promise<void> => {
-      await delay(300);
+      await delay(100);
       const oldContent = localDb.getCms();
       localDb.saveCms(content);
       await api.logs.create('cms', 'Update', 'CMS content updated', {
@@ -322,7 +320,7 @@ export const api = {
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
 <channel>
 <title>Aureus Gold Corp</title>
-<link>https://aureus.demo</link>
+<link>https://www.aureusgoldcorp.com</link>
 <description>Luxury Bullion, Coins and Rare Specimens</description>
 `;
         products.forEach(p => {
@@ -332,7 +330,7 @@ export const api = {
 <g:id>${v.sku}</g:id>
 <g:title>${p.title} - ${v.name}</g:title>
 <g:description>${p.description}</g:description>
-<g:link>https://aureus.demo/#/product/${p.slug}</g:link>
+<g:link>https://www.aureusgoldcorp.com/#/product/${p.slug}</g:link>
 <g:image_link>${p.images[0] || ''}</g:image_link>
 <g:brand>${v.mint || 'Aureus'}</g:brand>
 <g:condition>new</g:condition>
@@ -354,7 +352,7 @@ export const api = {
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
 <channel>
 <title>Aureus Gold Corp Catalog</title>
-<link>https://aureus.demo</link>
+<link>https://www.aureusgoldcorp.com</link>
 <description>Premium Precious Metals</description>
 `;
         products.forEach(p => {
@@ -364,7 +362,7 @@ export const api = {
 <g:id>${v.sku}</g:id>
 <g:title>${p.title}</g:title>
 <g:description>${p.description}</g:description>
-<g:link>https://aureus.demo/#/product/${p.slug}</g:link>
+<g:link>https://www.aureusgoldcorp.com/#/product/${p.slug}</g:link>
 <g:image_link>${p.images[0] || ''}</g:image_link>
 <g:brand>${v.mint || 'Aureus'}</g:brand>
 <g:condition>new</g:condition>
@@ -384,11 +382,11 @@ export const api = {
 
   notifications: {
       getTemplates: async (): Promise<NotificationTemplate[]> => {
-          await delay(100);
+          await delay(50);
           return localDb.getNotificationTemplates();
       },
       saveTemplate: async (template: NotificationTemplate): Promise<void> => {
-          await delay(200);
+          await delay(100);
           const templates = localDb.getNotificationTemplates();
           const index = templates.findIndex(t => t.id === template.id);
           if (index !== -1) {
@@ -405,7 +403,7 @@ export const api = {
           return localDb.getBroadcasts();
       },
       createBroadcast: async (message: string, priority: 'normal' | 'high'): Promise<void> => {
-          await delay(200);
+          await delay(100);
           const broadcasts = localDb.getBroadcasts();
           const newBroadcast: AdminBroadcast = {
               id: uuidv4(),
@@ -419,7 +417,7 @@ export const api = {
           await api.logs.create('notification', 'Broadcast', `Admin Broadcast Sent: ${message.substring(0, 30)}...`, { author: 'Admin' });
       },
       deleteBroadcast: async (id: string): Promise<void> => {
-          await delay(100);
+          await delay(50);
           const broadcasts = localDb.getBroadcasts();
           const filtered = broadcasts.filter(b => b.id !== id);
           localDb.saveBroadcasts(filtered);
@@ -428,11 +426,11 @@ export const api = {
 
   currency: {
       getSettings: async (): Promise<MultiCurrencySettings> => {
-          await delay(100);
+          await delay(50);
           return localDb.getCurrencySettings();
       },
       updateSettings: async (settings: MultiCurrencySettings): Promise<void> => {
-          await delay(300);
+          await delay(100);
           localDb.saveCurrencySettings(settings);
           await api.logs.create('currency', 'Config Update', 'Currency rates/rules updated', { author: 'Admin' });
       },
@@ -468,16 +466,16 @@ export const api = {
 
   seo: {
       getConfig: async (): Promise<SeoGlobalConfig> => {
-          await delay(100);
+          await delay(50);
           return localDb.getSeoConfig();
       },
       updateConfig: async (config: SeoGlobalConfig): Promise<void> => {
-          await delay(200);
+          await delay(100);
           localDb.saveSeoConfig(config);
           await api.logs.create('seo', 'Update', 'Global SEO Templates Updated', { author: 'Admin' });
       },
       analyzeKeywords: async (productTitle: string): Promise<KeywordOpportunity[]> => {
-          await delay(800);
+          await delay(300);
           // Mock logic based on keywords in title
           const base = [
               { keyword: 'Buy Gold Online', volume: 'High', difficulty: 85, relevance: 90 },
@@ -496,7 +494,7 @@ export const api = {
           return base.map(k => ({...k, currentRank: Math.floor(Math.random() * 50) + 1}));
       },
       simulatePageSpeed: async (): Promise<{ lcp: number, cls: number, fid: number }> => {
-          await delay(1500);
+          await delay(500);
           return {
               lcp: parseFloat((Math.random() * 2 + 1.0).toFixed(1)), // 1.0s - 3.0s
               cls: parseFloat((Math.random() * 0.15).toFixed(3)), // 0 - 0.15
@@ -507,15 +505,15 @@ export const api = {
 
   forms: {
       list: async (): Promise<FormDefinition[]> => {
-          await delay(200);
+          await delay(50);
           return localDb.getForms();
       },
       get: async (id: string): Promise<FormDefinition | undefined> => {
-          await delay(100);
+          await delay(50);
           return localDb.getForms().find(f => f.id === id);
       },
       update: async (form: FormDefinition): Promise<void> => {
-          await delay(200);
+          await delay(100);
           const forms = localDb.getForms();
           const index = forms.findIndex(f => f.id === form.id);
           if (index !== -1) {
@@ -529,7 +527,7 @@ export const api = {
           }
       },
       delete: async (id: string): Promise<void> => {
-          await delay(200);
+          await delay(100);
           const forms = localDb.getForms();
           const filtered = forms.filter(f => f.id !== id);
           localDb.saveForms(filtered);
@@ -538,11 +536,11 @@ export const api = {
 
   leads: {
       list: async (): Promise<LeadSubmission[]> => {
-          await delay(200);
+          await delay(50);
           return localDb.getLeads();
       },
       submit: async (formId: string, data: Record<string, string>, trackerId?: string): Promise<void> => {
-          await delay(800);
+          await delay(300);
           const forms = localDb.getForms();
           const form = forms.find(f => f.id === formId);
           if (!form) throw new Error('Form not found');
@@ -564,7 +562,7 @@ export const api = {
           });
       },
       updateStatus: async (id: string, status: LeadStatus, notes?: string): Promise<void> => {
-          await delay(200);
+          await delay(50);
           const leads = localDb.getLeads();
           const index = leads.findIndex(l => l.id === id);
           if (index !== -1) {
@@ -576,16 +574,16 @@ export const api = {
 
   blogs: {
       list: async (): Promise<BlogPost[]> => {
-          await delay(100);
+          await delay(50);
           return localDb.getBlogs();
       },
       get: async (idOrSlug: string): Promise<BlogPost | undefined> => {
-          await delay(100);
+          await delay(50);
           const blogs = localDb.getBlogs();
           return blogs.find(b => b.id === idOrSlug || b.slug === idOrSlug);
       },
       update: async (blog: BlogPost): Promise<void> => {
-          await delay(200);
+          await delay(100);
           const blogs = localDb.getBlogs();
           const index = blogs.findIndex(b => b.id === blog.id);
           if (index !== -1) {
@@ -609,7 +607,7 @@ export const api = {
           }
       },
       delete: async (id: string): Promise<void> => {
-          await delay(200);
+          await delay(100);
           const blogs = localDb.getBlogs();
           const filtered = blogs.filter(b => b.id !== id);
           localDb.saveBlogs(filtered);
@@ -625,7 +623,7 @@ export const api = {
           return localDb.getBlogCategories();
       },
       saveCategory: async (category: BlogCategory): Promise<void> => {
-          await delay(100);
+          await delay(50);
           const cats = localDb.getBlogCategories();
           const idx = cats.findIndex(c => c.id === category.id);
           if (idx !== -1) cats[idx] = category;
@@ -633,7 +631,7 @@ export const api = {
           localDb.saveBlogCategories(cats);
       },
       deleteCategory: async (id: string): Promise<void> => {
-          await delay(100);
+          await delay(50);
           const cats = localDb.getBlogCategories();
           const filtered = cats.filter(c => c.id !== id);
           localDb.saveBlogCategories(filtered);

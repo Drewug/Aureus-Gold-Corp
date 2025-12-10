@@ -92,7 +92,7 @@ export const SEOMetadataManager: React.FC<SEOMetadataManagerProps> = ({ products
                             <div className="text-[#1a0dab] text-xl truncate hover:underline cursor-pointer font-normal">
                                 {previewTitle}
                             </div>
-                            <div className="text-[#006621] text-sm">https://aureus.demo/product/{previewProduct?.slug}</div>
+                            <div className="text-[#006621] text-sm">https://www.aureusgoldcorp.com/product/{previewProduct?.slug}</div>
                             <div className="text-[#545454] text-sm leading-snug line-clamp-2">
                                 {previewDesc}
                             </div>
@@ -110,7 +110,7 @@ export const SEOMetadataManager: React.FC<SEOMetadataManagerProps> = ({ products
                                 )}
                             </div>
                             <div className="p-3 bg-[#18191a]">
-                                <div className="text-[#b0b3b8] text-xs uppercase mb-1">AUREUS.DEMO</div>
+                                <div className="text-[#b0b3b8] text-xs uppercase mb-1">AUREUSGOLD.COM</div>
                                 <div className="text-[#e4e6eb] font-bold leading-tight mb-1">{previewTitle}</div>
                                 <div className="text-[#b0b3b8] text-xs line-clamp-1">{previewDesc}</div>
                             </div>

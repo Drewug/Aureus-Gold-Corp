@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BlogPost } from '../../types';
 
 interface BlogJsonLdProps {
@@ -16,14 +16,14 @@ export const BlogJsonLd: React.FC<BlogJsonLdProps> = ({ post }) => {
         "author": [{
             "@type": "Person",
             "name": post.author,
-            "url": "https://aureus.demo/about"
+            "url": "https://www.aureusgoldcorp.com/about"
         }],
         "publisher": {
             "@type": "Organization",
             "name": "Aureus Gold Corp",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://aureus.demo/logo.png"
+                "url": "https://www.aureusgoldcorp.com/logo.png"
             }
         },
         "description": post.excerpt

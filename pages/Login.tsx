@@ -65,7 +65,6 @@ export const Login = () => {
                                 className="bg-charcoal text-white border-charcoal-lighter focus:border-gold"
                                 autoFocus
                             />
-                            <p className="text-xs text-gray-600 mt-2">Hint: The key is "Ddambaian123@"</p>
                         </div>
 
                         <div className="flex items-center gap-2">
