@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aureus Gold Corp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Default Theme Variables */
+        --color-charcoal: 11 11 12;
+        --color-charcoal-light: 26 26 28;
+        --color-charcoal-lighter: 42 42 46;
+        --color-gold: 212 175 55;
+        --color-gold-light: 244 207 87;
+        --color-gold-dim: 198 168 75;
+        --color-gold-dark: 176 141 38;
+        --color-text-base: 243 244 246;
+        
+        --font-heading: 'Bree Serif', serif;
+        --font-body: 'Inter', sans-serif;
+        
+        --radius: 4px;
+        --layout-max-width: 80rem;
+      }
+
+      body {
+        background-color: rgb(var(--color-charcoal));
+        color: rgb(var(--color-text-base));
+        font-family: var(--font-body);
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgb(var(--color-charcoal));
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: var(--radius);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgb(var(--color-gold));
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              charcoal: {
+                DEFAULT: 'rgb(var(--color-charcoal) / <alpha-value>)',
+                light: 'rgb(var(--color-charcoal-light) / <alpha-value>)',
+                lighter: 'rgb(var(--color-charcoal-lighter) / <alpha-value>)'
+              },
+              gold: {
+                DEFAULT: 'rgb(var(--color-gold) / <alpha-value>)',
+                light: 'rgb(var(--color-gold-light) / <alpha-value>)',
+                dim: 'rgb(var(--color-gold-dim) / <alpha-value>)',
+                dark: 'rgb(var(--color-gold-dark) / <alpha-value>)'
+              }
+            },
+            fontFamily: {
+              serif: ['var(--font-heading)', 'serif'],
+              sans: ['var(--font-body)', 'sans-serif'],
+            },
+            borderRadius: {
+              DEFAULT: 'var(--radius)',
+              md: 'calc(var(--radius) + 2px)',
+              lg: 'calc(var(--radius) + 4px)',
+            },
+            maxWidth: {
+              '7xl': 'var(--layout-max-width)'
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
+    "tailwind-merge": "https://aistudiocdn.com/tailwind-merge@^3.4.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1",
+    "clsx": "https://aistudiocdn.com/clsx@^2.1.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
